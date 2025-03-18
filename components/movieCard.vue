@@ -1,6 +1,6 @@
 <template>
   <div>
-      <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+      <div class="max-w-sm ml-4 mb-2 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
           <NuxtLink @click="changeItemState(item)" :to="`/item/${title}`">
               <img class="rounded-t-lg" :src="`${imageSiteUrl}${poster_path}`" alt="Movie Image" />
           </NuxtLink>
