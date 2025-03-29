@@ -1,27 +1,57 @@
 <template>
-  <div>
-      <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-          <NuxtLink @click="changeItemState(item)" :to="`/item/${name}`">
-              <img class="rounded-t-lg" :src="`${imageSiteUrl}${poster_path}`" alt="Series Image" />
-          </NuxtLink>
-          <div class="p-5">
-              <span href="#">
-                  <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{ name }}</h5>
-              </span>
-              <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">First Air Date: {{ first_air_date }}</p>
-              <p v-if="overview" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-black bg-white-700 rounded-lg hover:bg-white-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                  {{ overview }}
-                  
-              </p>
-              <p v-else class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-black bg-white-700 rounded-lg hover:bg-white-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                  No Overview Available
-                  
-              </p>
+    <div class=" mt-4 mb-4">
+      <div class="max-w-sm h-full flex flex-col bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 ml-3">
+        <NuxtLink @click="changeItemState(item)" :to="`/item/${name}`">
+          <!-- Fixed height image with consistent aspect ratio -->
+          <img 
+            class="rounded-t-lg w-full px-2 py-2 object-cover" 
+            :src="`${imageSiteUrl}${poster_path}`" 
+            alt="Series Image" 
+          />
+        </NuxtLink>
+        
+        <!-- Card content with fixed height sections -->
+        <div class="p-5 flex flex-col h-64"> <!-- Fixed total height for content -->
+          <!-- Title section with fixed height -->
+          <div class="h-16 mb-2">
+            <h5 class="text-xl font-bold tracking-tight text-gray-900 dark:text-white line-clamp-2">
+              {{ name }}
+            </h5>
           </div>
+          
+          <!-- Date section -->
+          <p class="mb-3 text-sm text-gray-700 dark:text-gray-400">
+            First Air Date: {{ first_air_date }}
+          </p>
+  
+          <!-- Overview section with fixed height and scroll if needed -->
+          <div class="flex-grow overflow-hidden">
+            <p v-if="overview" class="text-sm text-gray-700 dark:text-gray-400 line-clamp-4">
+              {{ overview }}
+            </p>
+            <p v-else class="text-sm text-gray-500 italic">No overview available</p>
+          </div>
+        </div>
       </div>
-  </div>
-</template>
-
+    </div>
+  </template>
+  
+  <style>
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  
+  .line-clamp-4 {
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  </style>
+  
 <script setup>
   defineProps([
       'name',
